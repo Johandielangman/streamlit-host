@@ -1,0 +1,4 @@
+.env
+apps/*/.env
+apps/*/.venv
+cloudflare/**

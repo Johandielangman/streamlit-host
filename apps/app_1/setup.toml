@@ -1,0 +1,11 @@
+# https://toml.io/en/
+
+title = "App 1"
+
+[owner]
+name = "Johan"
+
+[streamlit]
+port = 8001
+base_path = "/app-1"
+entry_file="app_1.py"
