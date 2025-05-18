@@ -21,8 +21,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
-    chmod +x /usr/local/bin/cloudflared
+# RUN curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
+#     chmod +x /usr/local/bin/cloudflared
 
 
 # =========== // WORKING DIRECTORY SETUP // ===========
@@ -31,7 +31,7 @@ WORKDIR $APP_ROOT
 COPY . .
 RUN mkdir -p /var/log/supervisor /etc/cloudflared
 
-COPY cloudflare/ /etc/cloudflared/
+# COPY cloudflare/ /etc/cloudflared/
 
 # =========== // BUILD SCRIPTS // ===========
 
@@ -44,5 +44,9 @@ RUN python build.py -dH && \
 
 HEALTHCHECK --interval=5m --timeout=3s --start-period=5s --start-interval=5s --retries=3\
   CMD python healthcheck.py || exit 1
+
+# =========== // EXPOSE PORTS // ===========
+
+EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]

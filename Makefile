@@ -1,6 +1,6 @@
 # Docker image and container names
-IMAGE_NAME_PROD=self-hosted-streamlit-prod
-IMAGE_NAME_DEV=self-hosted-streamlit-dev
+IMAGE_NAME_PROD=johandielangman/streamlit
+IMAGE_NAME_DEV=johandielangman/streamlit-dev
 CONTAINER_NAME_PROD=streamlit-prod
 CONTAINER_NAME_DEV=streamlit-dev
 
@@ -10,10 +10,10 @@ build-prod:
 	docker build --build-arg APP_ENV=production -t $(IMAGE_NAME_PROD) .
 
 run-prod:
-	docker run -d --name $(CONTAINER_NAME_PROD) --env-file .env -e APP_ENV=PROD $(IMAGE_NAME_PROD)
+	docker run -d --name $(CONTAINER_NAME_PROD) -e APP_ENV=PROD $(IMAGE_NAME_PROD)
 
 run-prod-80:
-	docker run -d --name $(CONTAINER_NAME_PROD) --env-file .env -e APP_ENV=PROD -p 80:80 $(IMAGE_NAME_PROD)
+	docker run -d --name $(CONTAINER_NAME_PROD) -e APP_ENV=PROD -p 80:80 $(IMAGE_NAME_PROD)
 
 exec-prod:
 	docker exec -it $(CONTAINER_NAME_PROD) sh
