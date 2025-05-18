@@ -26,6 +26,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+      - name: Install AWS CLI (if needed)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y awscli
+
+      - name: Download files from S3 to ./cloudflare
+        run: |
+          mkdir -p ./cloudflare
+          aws s3 cp s3://mokenah-cloudflare-streamlit-credentials/ ./cloudflare --recursive
+
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
